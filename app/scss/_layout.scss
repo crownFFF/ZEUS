@@ -32,7 +32,7 @@ html {
       content: "";
       @include position($p: fixed, $z: -1);
       inset: 0;
-      background: url("/background.jpg") no-repeat fixed center/cover;
+      background: url("/background.jpg") no-repeat center/cover;
       filter: blur(1rem);
     }
     > svg {
