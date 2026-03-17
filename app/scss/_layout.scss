@@ -1,0 +1,55 @@
+@use "./base/index" as *;
+@use "./components/index";
+
+:root {
+  --radius: 2rem;
+  --ff-BBH: BBH Sans Hegarty, var(--noto), arial;
+  font-size: 16px;
+  @include rwd_down(desktop) {
+    font-size: 14px;
+  }
+  @include rwd_down(tablet) {
+    font-size: 2vw;
+  }
+}
+
+html {
+  width: 100%;
+  // scrollbar-width: none;
+  body {
+    --p: 0 1rem;
+    width: 100%;
+    padding: 9.5rem var(--p);
+    @supports (min-height: 150dvh) and (animation-timeline: scroll(root)) and
+      (animation-range: 0 50vh) {
+      min-height: 150dvh;
+      padding: calc(55dvh + 9.5rem) 0 0;
+    }
+    position: relative;
+    color: #111d13;
+    @include flex($ff: row, $jc: center, $g: 2rem);
+    &::after {
+      content: "";
+      @include position($p: fixed, $z: -1);
+      inset: 0;
+      background: url("/background.jpg") no-repeat fixed center/cover;
+      filter: blur(1rem);
+    }
+    > svg {
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+    &:not(:has(header.animation)) {
+      min-height: unset;
+      padding: 9.5rem var(--p);
+    }
+    &:has(main.about) {
+      padding: 0 var(--p);
+    }
+    @include rwd_down(desktop) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

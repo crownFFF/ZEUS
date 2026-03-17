@@ -1,0 +1,196 @@
+// flex
+@mixin flex($jc: null, $ai: null, $ff: null, $g: null) {
+  display: flex;
+  @if $jc != null {
+    justify-content: $jc;
+  }
+  @if $ai != null {
+    align-items: $ai;
+  }
+  @if $ff != null {
+    flex-flow: $ff;
+  }
+  @if $g != null {
+    gap: $g;
+  }
+  @content;
+}
+
+// 文字省略
+@mixin ellipsis($line: 1, $w: 100%) {
+  width: $w;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @if $line != null {
+    @if $line == 1 {
+      // 設為單行省略
+      white-space: nowrap;
+    } @else {
+      // 指定多行省略
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: $line;
+    }
+  }
+}
+
+@mixin position(
+  $p: absolute,
+  $set: null,
+  $t: null,
+  $r: null,
+  $b: null,
+  $l: null,
+  $z: null
+) {
+  position: $p;
+  // 上下左右中定位
+  @if ($set != null) {
+    @if $set == "center" {
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+    } @else if $set == "top" {
+      inset: 0 auto auto 50%;
+      transform: translateX(-50%);
+    } @else if $set == "right" {
+      inset: 50% 0 auto auto;
+      transform: translateY(-50%);
+    } @else if $set == "bottom" {
+      inset: auto auto 0 50%;
+      transform: translateX(-50%);
+    } @else if $set == "left" {
+      inset: 50% auto auto 0;
+      transform: translateY(-50%);
+    }
+  } @else {
+    @if ($t != null) {
+      top: $t;
+    }
+    @if ($r != null) {
+      right: $r;
+    }
+    @if ($b != null) {
+      bottom: $b;
+    }
+    @if ($l != null) {
+      left: $l;
+    }
+  }
+  @if ($z != null) {
+    z-index: $z;
+  }
+  @content;
+}
+
+// 融球背景
+@mixin gooey {
+  .gooey {
+    width: 100%;
+    height: 100%;
+    @include position($t: 50%, $r: 50%, $z: -1);
+    transform: translate(50%, -50%);
+    @include flex($ai: center, $jc: center);
+    filter: url(#gooey);
+    pointer-events: none;
+    span {
+      display: block;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      @include position;
+      transition: all 0.5s;
+      &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        animation: wave linear infinite;
+        background: linear-gradient(#aff394a4, #4c6d4c);
+      }
+      &.gooey {
+        &1 {
+          left: 0;
+          &::after {
+            animation-duration: 1s;
+          }
+        }
+        &2 {
+          width: 4rem;
+          height: 4rem;
+          &::after {
+            animation-duration: 2s;
+          }
+        }
+        &3 {
+          right: 0;
+          &::after {
+            animation-duration: 3s;
+          }
+        }
+      }
+    }
+  }
+  &:hover {
+    .gooey {
+      span {
+        &.gooey {
+          &1 {
+            left: 40%;
+            transform: translateX(-50%);
+          }
+          &3 {
+            right: 40%;
+            transform: translateX(50%);
+          }
+        }
+      }
+    }
+  }
+}
+// 濕度
+@mixin humidity {
+  @include flex($ff: column, $ai: center, $jc: flex-end, $g: 1.5rem);
+  font-size: 1.5rem;
+  div {
+    width: 17.5rem;
+    height: 17.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      inset -0.5rem -0.5rem 1rem 1rem #ffffff80,
+      inset 0.25rem -0.75rem 0.5rem 0.25rem #0083a371,
+      0.25rem 0.25rem 0.5rem #0034573a;
+    border: 1px solid #ffffff80;
+    &::before,
+    &::after {
+      content: "";
+      @include position($t: calc((100 - var(--t)) * 1%), $l: 50%, $z: -1);
+      transform: translateX(-50%);
+      width: 200%;
+      height: 200%;
+      transform-origin: center left;
+      animation: wave linear infinite;
+      transition: top 1s ease-in-out;
+    }
+    &::before {
+      background: #0050c980;
+      border-radius: 45%;
+      animation-duration: 10s;
+    }
+    &::after {
+      background: #437291b0;
+      border-radius: 40%;
+      animation-duration: 12s;
+    }
+  }
+  p {
+    @include position($t: 50%, $l: 50%, $z: 1);
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: #00a2ff;
+    mix-blend-mode: color-dodge;
+    text-align: center;
+  }
+}

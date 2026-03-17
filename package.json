@@ -1,0 +1,29 @@
+{
+  "name": "zeus",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.4.2",
+    "animate-css-grid": "^1.5.1",
+    "animejs": "^4.3.6",
+    "echarts": "^6.0.0",
+    "next": "16.0.10",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "swr": "^2.3.8",
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "eslint": "^9",
+    "eslint-config-next": "16.0.10",
+    "raw-loader": "^4.0.2",
+    "sass": "^1.97.0"
+  } 
+}
