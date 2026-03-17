@@ -256,6 +256,12 @@ main {
         section {
           @include flex($ff: wrap, $jc: center);
           position: relative;
+          &.detail{
+            @include rwd_down(tablet) {
+              flex-flow: column nowrap;
+              align-items: center;
+            };
+          }
         }
         div {
           position: relative;

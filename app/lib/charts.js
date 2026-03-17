@@ -40,7 +40,7 @@ export const one_temp = {
         },
       },
       axisLabel: {
-        // show:false,
+        show:false,
         distance: -9,
         color: "#fff",
         fontSize: "1.2rem",
